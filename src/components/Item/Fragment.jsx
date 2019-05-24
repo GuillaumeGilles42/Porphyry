@@ -23,8 +23,8 @@ export default class Fragment extends Component {
         return (
             <div className="d-table w-100 border">
                 <div className="d-table-row border">
-                    <div className="d-table-cell border text-center" style={{"width": "30%"}}>textes</div>
-                    <div className="d-lg-table-cell border text-center">fragments</div>
+                    <div className="d-table-cell border text-center" style={{"width": "30%"}}>item</div>
+                    <div className="d-lg-table-cell border text-center">fragment d'un item</div>
                 </div>
                 <div className="d-table-row border">
                     <div className="d-table-cell">
@@ -67,7 +67,7 @@ export default class Fragment extends Component {
             return (
                 <div className="d-table-row boder w-100">
                     <div className="d-table-cell border">
-                        <p className="text-center">aucun fragment de selectionner</p>
+                        <p className="text-center">aucun item de selectionner</p>
                     </div>
                 </div>
             )
