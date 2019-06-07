@@ -11,7 +11,7 @@ Fonctionnalité: Consulter les items en mode fragment
 
     Soit le point de vue "Sociologie de la douleur" rattaché à l'item "David1"
     Soit la catégorie "souffrir de plus en plus" rattaché au point de vue "Sociologie de la douleur"
-    Soit le fragment "Quand je suis rentré comme profess" rattaché à la catégorie "souffrir de plus en plus"
+    Soit le fragment "Quand je suis rentré comme professeur, j'étais un h" rattaché à la catégorie "souffrir de plus en plus"
 
   Scénario: Afficher la liste des items
     Soit "alice" le portfolio ouvert
@@ -24,5 +24,5 @@ Fonctionnalité: Consulter les items en mode fragment
     Et l'item "David1" est affiché
     Quand l'item "David1" est selectionné
     Alors la catégorie "souffrir de plus en plus" est affiché
-    Et le fragment "Quand je suis rentré comme profess" est affiché
-    Et le lien vers le texte associé au fragment "Quand je suis rentré comme profess" est affiché
+    Et le fragment "Quand je suis rentré comme professeur, j'étais un h" est affiché
+    Et le lien vers le texte associé au fragment "Quand je suis rentré comme professeur, j'étais un h" est affiché
