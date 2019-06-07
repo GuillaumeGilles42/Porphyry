@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import lien from '../../images/lien_logo.svg'
 
 export default class Fragment extends Component {
@@ -14,7 +14,7 @@ export default class Fragment extends Component {
       let found = nextProps.items.find(
         text => text.id === nextState.idTextToAnalyse
       )
-      if (!found) return { idTextToAnalyse: null }
+      if (!found) return {idTextToAnalyse: null}
     }
     return false
   }
@@ -23,28 +23,29 @@ export default class Fragment extends Component {
     const generatedTextDescription = this._generateTextDescription()
     const generatedTextFragment = this._generateTextFragment()
     return (
-      <div className='d-table w-100 border'>
-        <div className='d-table-row border'>
-          <div
-            className='d-table-cell border text-center'
-            style={{ width: '30%' }}
-          >
-            items
-          </div>
-          <div className='d-lg-table-cell border text-center'>
-            fragments d'un item
-          </div>
-        </div>
-        <div className='d-table-row border'>
-          <div className='d-table-cell'>
-            <div className='border d-table w-100'>
-              {generatedTextDescription}
-            </div>
-          </div>
-          <div className='d-table-cell'>
-            <div className='border d-table w-100'>{generatedTextFragment}</div>
-          </div>
-        </div>
+      <div className="table-responsive">
+        <table className="table table-bordered">
+          <thead className="text-center">
+          <tr>
+            <th scope="col" style={{width: '30%'}}>Items</th>
+            <th scope="col">Fragments d'un item</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td style={{padding: '0'}}>
+              <table style={{border: 'none'}} className="w-100">
+                {generatedTextDescription}
+              </table>
+            </td>
+            <td style={{padding: '0'}}>
+              <table style={{border: 'none'}} className="w-100">
+                {generatedTextFragment}
+              </table>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     )
   }
@@ -53,11 +54,11 @@ export default class Fragment extends Component {
     const selectId = this.selectIdTextToAnalyse
     const idTextToAnalyse = this.state.idTextToAnalyse
     return this.props.items.map((text, id) => {
-      let { resource } = text
+      let {resource} = text
       resource = resource ? (
         <a href={resource[0]}>
           <img
-            style={{ height: '15px', weight: '15px' }}
+            style={{height: '15px', weight: '15px'}}
             alt="lien le texte d'origine"
             src={lien}
           />
@@ -65,16 +66,18 @@ export default class Fragment extends Component {
       ) : null
       const idIdentique = idTextToAnalyse === text.id
       const class_name = idIdentique
-        ? 'd-table-row boder w-100 textSelected'
-        : 'd-table-row boder w-100'
+        ? 'item textSelected'
+        : 'item'
       return (
-        <div className={class_name} key={id} onClick={() => selectId(text.id)}>
-          <div className='d-table-cell border'>
-            <p>
+        <tr className={class_name} key={id} onClick={() => selectId(text.id)}>
+          <td>
+            <p className="name">
               <b>name :</b> {text.name} {resource}
             </p>
-          </div>
-        </div>
+            <p className="date"></p>
+            <p className="author"></p>
+          </td>
+        </tr>
       )
     })
   }
@@ -82,22 +85,24 @@ export default class Fragment extends Component {
   selectIdTextToAnalyse = id => {
     window.scrollTo(0, 0)
     if (id === this.state.idTextToAnalyse) {
-      this.setState({ idTextToAnalyse: null })
+      this.setState({idTextToAnalyse: null})
     } else {
-      this.setState({ idTextToAnalyse: id })
+      this.setState({idTextToAnalyse: id})
     }
   }
 
   _generateTextFragment() {
 
     if (this.state.idTextToAnalyse === null) {
-      let fragmentSelect = this.props.items.map(fragment=>{return Object.values(fragment)})
-      if(this.props.selection.length !==0) {
-        fragmentSelect = fragmentSelect.map(fragments=>{
-          return fragments.filter(fragment=>{
-            return  this.props.selection.every(selection=>{
-              if (fragment.topic){
-                return fragment.topic.find(t=>{
+      let fragmentSelect = this.props.items.map(fragment => {
+        return Object.values(fragment)
+      })
+      if (this.props.selection.length !== 0) {
+        fragmentSelect = fragmentSelect.map(fragments => {
+          return fragments.filter(fragment => {
+            return this.props.selection.every(selection => {
+              if (fragment.topic) {
+                return fragment.topic.find(t => {
                   return t.id === selection
                 })
               }
@@ -108,15 +113,15 @@ export default class Fragment extends Component {
       return fragmentSelect.map(fragments => {
         return fragments.map((fragment, idFragment) => {
           return (
-            <div key={idFragment} className='d-table-row boder w-100'>
-              <div className='d-table-cell border'>
+            <tr key={idFragment}>
+              <td>
                 {fragment.text
                   ? fragment.text.map((text, idText) => (
-                      <p key={idText}>{text} </p>
-                    ))
+                    <p key={idText} style={{margin: 0}}>{text}</p>
+                  ))
                   : null}
-              </div>
-            </div>
+              </td>
+            </tr>
           )
         })
       })
@@ -125,11 +130,11 @@ export default class Fragment extends Component {
         text => text.id === this.state.idTextToAnalyse
       )
       let fragmentSelect = Object.values(fragments);
-      if(this.props.selection.length !==0) {
-        fragmentSelect = fragmentSelect.filter(fragments=>{
-          return  this.props.selection.every(selection=>{
-            if(fragments.topic){
-              return fragments.topic.find(t=>{
+      if (this.props.selection.length !== 0) {
+        fragmentSelect = fragmentSelect.filter(fragments => {
+          return this.props.selection.every(selection => {
+            if (fragments.topic) {
+              return fragments.topic.find(t => {
                 return t.id === selection
               })
             }
@@ -138,15 +143,15 @@ export default class Fragment extends Component {
       }
       return fragmentSelect.map((fragment, idFragment) => {
         return (
-          <div key={idFragment} className='d-table-row boder w-100'>
-            <div className='d-table-cell border'>
+          <tr key={idFragment}>
+            <td>
               {fragment.text
                 ? fragment.text.map((text, idText) => (
-                    <p key={idText}>{text} </p>
-                  ))
+                  <p key={idText} style={{margin: 0}}>{text}</p>
+                ))
                 : null}
-            </div>
-          </div>
+            </td>
+          </tr>
         )
       })
     }
