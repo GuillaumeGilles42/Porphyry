@@ -29,13 +29,13 @@ Alors("il doit y avoir au moins {int} items affichés") do |int|
 end
 
 Alors("l'item {string} est décrit par une date") do |item|
-   node = find('.Items .item .name', exact_text: item)
+   node = find('.Items .item .name', text: item)
    parent = node.find(:xpath, '..')
    expect(parent).to have_selector('.date')
 end
 
 Alors("l'item {string} est décrit par un auteur") do |item|
-   node = find('.Items .item .name', exact_text: item)
+   node = find('.Items .item .name', text: item)
    parent = node.find(:xpath, '..')
    expect(parent).to have_selector('.author')
 end
@@ -43,15 +43,14 @@ end
 # Events
 
 Quand("l'item {string} est selectionné") do |item|
-   node = find('.item', exact_text: item)
-   click_on node
-   expect(node).to have_selector('.textSelected')
+   find('.item', text: item).click
+   expect(page).to have_selector('.textSelected')
 end
 
 # Outcomes
 
 Alors("la catégorie {string} est affiché") do |category|
-   expect(find('.Topic')).to have_content category
+   expect(page).to have_content category
 end
 
 Alors("le fragment {string} est affiché") do |fragment|
