@@ -23,28 +23,31 @@ export default class Fragment extends Component {
     const generatedTextDescription = this._generateTextDescription()
     const generatedTextFragment = this._generateTextFragment()
     return (
-      <div className='d-table w-100 border'>
-        <div className='d-table-row border'>
-          <div
-            className='d-table-cell border text-center'
-            style={{ width: '30%' }}
-          >
-            items
-          </div>
-          <div className='d-lg-table-cell border text-center'>
-            fragments d'un item
-          </div>
-        </div>
-        <div className='d-table-row border'>
-          <div className='d-table-cell'>
-            <div className='border d-table w-100'>
-              {generatedTextDescription}
-            </div>
-          </div>
-          <div className='d-table-cell'>
-            <div className='border d-table w-100'>{generatedTextFragment}</div>
-          </div>
-        </div>
+      <div className='table-responsive'>
+        <table className='table table-bordered'>
+          <thead className='text-center'>
+            <tr>
+              <th scope='col' style={{ width: '30%' }}>
+                Items
+              </th>
+              <th scope='col'>Fragments d'un item</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ padding: '0' }}>
+                <table style={{ border: 'none' }} className='w-100'>
+                  <tbody>{generatedTextDescription}</tbody>
+                </table>
+              </td>
+              <td style={{ padding: '0' }}>
+                <table style={{ border: 'none' }} className='w-100'>
+                  <tbody>{generatedTextFragment}</tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     )
   }
@@ -64,17 +67,17 @@ export default class Fragment extends Component {
         </a>
       ) : null
       const idIdentique = idTextToAnalyse === text.id
-      const class_name = idIdentique
-        ? 'd-table-row boder w-100 textSelected'
-        : 'd-table-row boder w-100'
+      const class_name = idIdentique ? 'item textSelected' : 'item'
       return (
-        <div className={class_name} key={id} onClick={() => selectId(text.id)}>
-          <div className='d-table-cell border'>
-            <p>
+        <tr className={class_name} key={id} onClick={() => selectId(text.id)}>
+          <td>
+            <p className='name'>
               <b>name :</b> {text.name} {resource}
             </p>
-          </div>
-        </div>
+            <p className='date' />
+            <p className='author' />
+          </td>
+        </tr>
       )
     })
   }
@@ -107,15 +110,17 @@ export default class Fragment extends Component {
       return fragmentSelect.map(fragments => {
         return fragments.map((fragment, idFragment) => {
           return (
-            <div key={idFragment} className='d-table-row boder w-100'>
-              <div className='d-table-cell border'>
+            <tr key={idFragment}>
+              <td>
                 {fragment.text
                   ? fragment.text.map((text, idText) => (
-                      <p key={idText}>{text} </p>
+                      <p key={idText} style={{ margin: 0 }}>
+                        {text}
+                      </p>
                     ))
                   : null}
-              </div>
-            </div>
+              </td>
+            </tr>
           )
         })
       })
@@ -135,15 +140,17 @@ export default class Fragment extends Component {
       }
       return fragmentSelect.map((fragment, idFragment) => {
         return (
-          <div key={idFragment} className='d-table-row boder w-100'>
-            <div className='d-table-cell border'>
+          <tr key={idFragment}>
+            <td>
               {fragment.text
                 ? fragment.text.map((text, idText) => (
-                    <p key={idText}>{text} </p>
+                    <p key={idText} style={{ margin: 0 }}>
+                      {text}
+                    </p>
                   ))
                 : null}
-            </div>
-          </div>
+            </td>
+          </tr>
         )
       })
     }

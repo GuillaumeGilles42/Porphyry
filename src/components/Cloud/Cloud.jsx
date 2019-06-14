@@ -19,6 +19,7 @@ class Cloud extends Component {
     let alltopics = []
     this.pushChildInTab(viewpoint.upper || [], alltopics)
     alltopics = alltopics
+      .filter(topic => topic.name)
       .map(topic => {
         let items = topicsItems.get(topic.id)
         let found = selection.find(s => s === topic.id)
