@@ -89,18 +89,17 @@ export default class Fragment extends Component {
   }
 
   _generateTextFragment() {
-
     if (this.state.idTextToAnalyse === null) {
-      let fragmentSelect = this.props.items.map(fragment=>{return Object.values(fragment)})
-      if(this.props.selection.length !==0) {
-        fragmentSelect = fragmentSelect.map(fragments=>{
-          return fragments.filter(fragment=>{
-            return  this.props.selection.every(selection=>{
-              if (fragment.topic){
-                return fragment.topic.find(t=>{
-                  return t.id === selection
-                })
-              }
+      let fragmentSelect = this.props.items.map(fragment => {
+        return Object.values(fragment)
+      })
+      if (this.props.selection.length !== 0) {
+        fragmentSelect = fragmentSelect.map(fragments => {
+          return fragments.filter(fragment => {
+            return this.props.selection.every(selection => {
+              return (fragment.topic || []).find(t => {
+                return t.id === selection
+              })
             })
           })
         })
@@ -124,15 +123,13 @@ export default class Fragment extends Component {
       let fragments = this.props.items.find(
         text => text.id === this.state.idTextToAnalyse
       )
-      let fragmentSelect = Object.values(fragments);
-      if(this.props.selection.length !==0) {
-        fragmentSelect = fragmentSelect.filter(fragments=>{
-          return  this.props.selection.every(selection=>{
-            if(fragments.topic){
-              return fragments.topic.find(t=>{
-                return t.id === selection
-              })
-            }
+      let fragmentSelect = Object.values(fragments)
+      if (this.props.selection.length !== 0) {
+        fragmentSelect = fragmentSelect.filter(fragments => {
+          return this.props.selection.every(selection => {
+            return (fragments.topic || []).find(t => {
+              return t.id === selection
+            })
           })
         })
       }

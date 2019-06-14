@@ -18,22 +18,28 @@ class Cloud extends Component {
     const { selection, viewpoint, topicsItems } = this.props
     let alltopics = []
     this.pushChildInTab(viewpoint.upper || [], alltopics)
-    alltopics = alltopics.map(topic => {
-      let items = topicsItems.get(topic.id)
-      let found = selection.find(s => s === topic.id)
+    alltopics = alltopics
+      .map(topic => {
+        let items = topicsItems.get(topic.id)
+        let found = selection.find(s => s === topic.id)
 
-      let uri =
-        '?' +
-        queryString.stringify({
-          t: this.toggle(selection, topic.id)
-        })
-      return {
-        value: topic.name[0],
-        count: items ? items.size : 0,
-        color: found ? '#f00' : '#333',
-        uri
-      }
-    })
+        let uri =
+          '?' +
+          queryString.stringify({
+            t: this.toggle(selection, topic.id)
+          })
+        return {
+          value: topic.name[0],
+          count: items ? items.size : 0,
+          color: found ? 'selected' : '',
+          uri
+        }
+      })
+      .sort((a, b) => {
+        if (a.value > b.value) return 1
+        if (a.value < b.value) return -1
+        return 0
+      })
     return (
       <TagCloud
         minSize={12}
@@ -50,8 +56,9 @@ class Cloud extends Component {
                   margin: '3px',
                   padding: '3px',
                   display: 'inline-block',
-                  color: color
+                  color: 'black'
                 }}
+                className={color === 'selected' ? 'Cloud-Selected' : ''}
               >
                 {tag.value}
               </span>
